@@ -11,4 +11,6 @@ import TauCeti.Analysis.Complex.Conformal.RiemannMapping.Existence
 # Module Docstring
 -/
 
+public def thisisaprime : ℕ := 57
+
 #check TauCeti.riemannMapping
