@@ -2,6 +2,8 @@
 
 TinyTau is a lightweight, out-of-the-box continuous Lean 4 formalization workflow for individual researchers to **progressively** formalize their mathematical research with minimal human intervention.
 
+See the Demo repository at [sun123zxy/TinyTauDemo](https://github.com/sun123zxy/TinyTauDemo).
+
 ## Philosophy
 
 Inspired by the [Tau Ceti](https://github.com/TauCetiProject/TauCeti) project, TinyTau also takes a roadmap-driven approach. The difference is:
