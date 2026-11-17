@@ -53,3 +53,5 @@ After reporting the doctor summary, offer to help the user with any of the follo
 - **Configure `.tinytau/config.yml`**: Guide the user through configuring [`.tinytau/config.yml`](/.tinytau/config.yml) and replacing its sample placeholders (and any matching placeholder headers in existing Lean files).
 
 - **Offer to Run the First `Sync`**: If everything is settled, offer to run the first `Sync` to initialize the local `roadmap/` with the human-authored repository.
+
+- **Configure documentation & GitHub Pages settings**: Remind the user to enable GitHub Pages in their repository settings (**Settings → Pages → Build and deployment → Source: GitHub Actions**) so [`.github/workflows/pages.yml`](/.github/workflows/pages.yml) can deploy the site, and ask how frequently docs should build automatically via `docs-min-interval` in [`.tinytau/config.yml`](/.tinytau/config.yml) (minimum hours between automatic `push` builds, or `0` to never build automatically and rely on manual `workflow_dispatch`).
