@@ -35,6 +35,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render roadmap with Quarto to _site/roadmap
+        shell: bash
+        run: bash .tinytau/scripts/build-roadmap.sh
+
       - name: Build Lean project
         uses: leanprover/lean-action@v1
 
@@ -58,13 +65,6 @@ jobs:
       - name: Build API documentation to _site/docs
         shell: bash
         run: bash .tinytau/scripts/build-docs.sh
-
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-
-      - name: Render roadmap with Quarto to _site/roadmap
-        shell: bash
-        run: bash .tinytau/scripts/build-roadmap.sh
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
