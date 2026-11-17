@@ -33,6 +33,11 @@ sync-min-interval: 24
 # Set to false to disable automatic bumps.
 bump: true
 
+# Whether the worker automatically pushes to the remote after committing.
+# Set to true to run `git push` after each Sync, Bump, Refactor, or Feat commit;
+# set to false to keep commits local.
+auto-push: true
+
 # Reference name for copyright and author headers at the top of Lean files.
 # Replace this placeholder during initialization.
 copyright-name: Your Name

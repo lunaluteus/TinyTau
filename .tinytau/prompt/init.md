@@ -9,7 +9,7 @@ First read [`README.md`](/README.md), [`.tinytau/config.yml`](/.tinytau/config.y
 
 ### Repository & Upstream Access
 
-- **Git & Checkout** *(Required)*: Run `git --version`, `git status`, and `git remote -v` to confirm Git works and check the local working tree.
+- **Git & Checkout** *(Required)*: Run `git --version`, `git status`, and `git remote -v` to confirm Git works and check the local working tree. If `auto-push` is `true` in [`.tinytau/config.yml`](/.tinytau/config.yml), also check whether the current branch has an upstream tracking branch (`git rev-parse --abbrev-ref --symbolic-full-name @{u}`).
 - **TinyTau Config** *(Required for `Sync`)*: Check whether [`.tinytau/config.yml`](/.tinytau/config.yml) still contains sample placeholders, and test upstream read access:
 
   ```sh
