@@ -44,6 +44,11 @@ auto-push: true
 # build automatically on push (manual workflow_dispatch runs still build).
 docs-min-interval: 8
 
+# Optional Quarto profile (or comma-separated profiles) passed as `--profile`
+# when rendering roadmap/ via .tinytau/scripts/build-roadmap.sh.
+# Use null (or empty) to render without --profile.
+quarto-profile: null
+
 # Reference name for copyright and author headers at the top of Lean files.
 # Replace this placeholder during initialization.
 copyright-name: Your Name
