@@ -7,6 +7,28 @@ cd "$REPO_ROOT"
 OUT_DIR="$REPO_ROOT/_site/roadmap"
 FILTER_PATH="$REPO_ROOT/.tinytau/scripts/tinytau.lua"
 
+if [ ! -e roadmap ]; then
+  rm -rf "$OUT_DIR"
+  mkdir -p "$OUT_DIR"
+  cat > "$OUT_DIR/index.html" <<'EOF'
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roadmap</title>
+</head>
+<body>
+  <h1>Roadmap</h1>
+  <p>The roadmap will appear after the first sync.</p>
+  <p><a href="../">Back to project home</a></p>
+</body>
+</html>
+EOF
+  echo "Wrote a placeholder to $OUT_DIR because roadmap/ is missing."
+  exit 0
+fi
+
 WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/tinytau-roadmap.XXXXXX")"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
