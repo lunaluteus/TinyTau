@@ -3,7 +3,7 @@ name: Formalization Quality Rubrics
 description: Reference quality standards for self-checking Lean 4 formalizations and roadmap updates before committing.
 ---
 
-Use these rubrics as a self-check reference before committing `Feat`, `Refactor`, `Bump`, or `Sync` work.
+Use these rubrics as a self-check reference before committing `Fix`, `Feat`, `Refactor`, `Bump`, or `Sync` work.
 
 ## Correctness and Faithfulness (`correctness`)
 

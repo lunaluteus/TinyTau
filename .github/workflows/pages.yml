@@ -14,8 +14,7 @@ permissions:
 
 concurrency:
   group: pages
-  # Keep pending pushes queued while a Pages run is active.
-  queue: max
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
@@ -58,7 +57,7 @@ jobs:
         uses: leanprover-community/docgen-action@main
         with:
           homepage: _site
-          # Skip Jekyll because _site is prepared above.
+          # _site/ is already built above; skip docgen-action's Jekyll page build.
           build-page: false
           api-docs: true
           use-github-cache: true
