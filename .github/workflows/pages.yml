@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Cleanup to free disk space
@@ -53,7 +54,7 @@ jobs:
       - name: Build Lean project
         uses: leanprover/lean-action@v1
 
-      - name: Build API documentation and deploy to GitHub Pages
+      - name: Build API documentation
         uses: leanprover-community/docgen-action@main
         with:
           homepage: _site
@@ -61,4 +62,17 @@ jobs:
           build-page: false
           api-docs: true
           use-github-cache: true
-          deploy: true
+          deploy: false
+
+      - name: Rewrite roadmap links in API documentation
+        shell: bash
+        run: python3 .tinytau/scripts/rewrite-doc-links.py
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

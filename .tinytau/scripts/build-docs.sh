@@ -44,4 +44,5 @@ EOF
 mkdir -p _site
 rm -rf _site/docs
 cp -r docbuild/.lake/build/doc _site/docs
+python3 .tinytau/scripts/rewrite-doc-links.py
 echo "Built doc-gen4 documentation into _site/docs"
