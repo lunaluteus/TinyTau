@@ -5,7 +5,7 @@ description: Determine the highest-priority actionable worker mode, execute it, 
 
 ## Determining Worker Mode (Priority Order)
 
-Human instructions take precedence over this default priority order: if the user assigns a specific mode or target, follow their instruction and treat this selection process as reference only. Otherwise, evaluate the modes below in order and pick the **first** one whose conditions hold:
+Human instructions take precedence over this default priority order: if the user assigns a specific mode or target, follow their instruction and treat this selection process as reference only. Otherwise, evaluate the modes below in order and pick the **first** one whose conditions hold. By default, do not add, remove, or modify Lean/Lake dependencies or toolchain pins (`lakefile.toml`, `lakefile.lean`, `lake-manifest.json`, `lean-toolchain`)—or run `lake update`—outside `Bump` mode unless explicitly instructed by the user:
 
 ### [Fix](./fix.md)
 

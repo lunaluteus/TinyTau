@@ -33,6 +33,7 @@ Keep each commit focused on a single coherent topic that belongs in the reposito
 
 - **Existing Code (`Refactor` mode)**: Refactoring, relocating, renaming, simplifying, re-proving, modestly generalizing, or fixing doc–code drift for existing material is in scope.
 - **Dependency Upgrades (`Bump` mode)**: Updating `lakefile.toml`, `lean-toolchain`, `lake-manifest.json`, minimal compatibility fixes in `.lean` files, and marking newly redundant or unsuitable targets as `ok: refactor` in `*-ai.yml` is one coherent unit.
+- **No Unrequested Dependency Changes**: Outside `Bump` mode, do not add, remove, or modify Lean/Lake dependencies or toolchain pins (`lakefile.toml`, `lakefile.lean`, `lake-manifest.json`, `lean-toolchain`), and do not run `lake update`, unless explicitly instructed by the user.
 - **New Mathematical Material (`Feat` mode)**: New definitions, theorems, instances, or files must advance a specific `roadmap/` target or provide a concrete, proximate prerequisite for one. Avoid speculative theory ("might be useful later") detached from the roadmap.
 - **Single Topic**: Do not bundle unrelated roadmap targets or mix opportunistic refactoring of unrelated areas with new feature work. Updating `*-ai.qmd` and `*-ai.yml` alongside the Lean code for the same target counts as one coherent unit.
 
