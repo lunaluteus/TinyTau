@@ -18,4 +18,4 @@ description: Diagnose and resolve the latest failed CI workflow run on the curre
    - **`Pages` failure**: Use the failed step and [`guide/tooling.md`](/.tinytau/guide/tooling.md) to identify and fix the roadmap, API documentation, or deployment error.
    - **Other workflow failure**: They are harmless; do not attempt to fix them.
 
-3. **Self-Check & Commit**: Review the fix against the failing check's requirements and [`guide/rubrics.md`](/.tinytau/guide/rubrics.md). Commit per [`worker.md`](./worker.md#committing-work). The `gh.push-min-interval` throttle does not apply when pushing a CI fix. After pushing, continue to the next actionable task while CI runs. Check the workflow result during mode selection in a later round.
+3. **Self-Check & Commit**: Review the fix against the failing check's requirements and [`guide/rubrics.md`](/.tinytau/guide/rubrics.md). Commit per [`worker.md`](./worker.md#committing-work). After pushing, continue to the next actionable task while CI runs. Check the workflow result during mode selection in a later round.
