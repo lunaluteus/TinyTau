@@ -5,16 +5,17 @@ import argparse
 import re
 from pathlib import Path
 
-HREF_RE = re.compile(r"""href=(["'])/roadmap/([^"']*)\1""")
-EXT_RE = re.compile(r"\.(?:qmd|md)(?=#|$)")
+# doc-gen4 can prepend a page-relative path to an authored /roadmap/ link.
+HREF_RE = re.compile(r"""href=(["'])(?:(?:\.\./)*\./)?/roadmap/([^"']*)\1""")
+EXT_RE = re.compile(r"^([^?#]*)\.(?:qmd|md)(?=[?#]|$)")
 
 
 def rewrite_html(html: str, rel_prefix: str) -> str:
-    """Rewrite href="/roadmap/..." attributes using rel_prefix and .html targets."""
+    """Normalize authored and doc-gen4-prefixed links to rendered roadmap pages."""
 
     def replace(match: re.Match[str]) -> str:
         quote = match.group(1)
-        target = EXT_RE.sub(".html", match.group(2))
+        target = EXT_RE.sub(r"\1.html", match.group(2))
         return f"href={quote}{rel_prefix}roadmap/{target}{quote}"
 
     return HREF_RE.sub(replace, html)
