@@ -11,7 +11,7 @@ description: Defines requirements for Lean documentation and commit-pinned roadm
 
 ## Commit-Pinned Roadmap References
 
-When a Lean docstring or comment cites the roadmap, name the result in prose and use `XXX theorem ([roadmap](link) @ sha)`.
+When a Lean docstring or comment cites the roadmap, name the result in prose and use `some prose ([roadmap](link) @ sha)`.
 
 ```markdown
 We proved the main theorem ([roadmap](../roadmap/area/topic.html#thm-main) @ <commit-sha>).

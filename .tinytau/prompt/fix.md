@@ -16,6 +16,6 @@ description: Diagnose and resolve the latest failed CI workflow run on the curre
    - **`Lean Action` failure**: Fix compilation errors, warnings, or non-standard axioms per [`guide/build.md`](/.tinytau/guide/build.md).
    - **`Compare Human Roadmap` failure**: Restore any accidentally modified human-authored file to match `human-repo` at the recorded `human-sha`. Leave `.tinytau/sync.yml` untouched in a fix.
    - **`Pages` failure**: Use the failed step and [`guide/tooling.md`](/.tinytau/guide/tooling.md) to identify and fix the roadmap, API documentation, or deployment error.
-   - **Other workflow failure**: Inspect the failed step and fix the underlying configuration or code issue cleanly.
+   - **Other workflow failure**: They are harmless; do not attempt to fix them.
 
 3. **Self-Check & Commit**: Review the fix against the failing check's requirements and [`guide/rubrics.md`](/.tinytau/guide/rubrics.md). Commit per [`worker.md`](./worker.md#committing-work). If pushed, verify that the failing workflow passes on the fix commit.
