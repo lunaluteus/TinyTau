@@ -7,7 +7,7 @@ Use these rubrics as a self-check reference before committing `Fix`, `Feat`, `Re
 
 ## Correctness and Faithfulness (`correctness`)
 
-Every new definition and theorem must faithfully capture the intended mathematics. Passing local verification ([`guide/build.md`](/.tinytau/guide/build.md)) guarantees valid, warning-free proofs using only standard axioms, not that a statement says what it should. Inspect every definition and statement adversarially: try to find a counterexample, vacuous case, or hidden narrowing.
+Every new definition and theorem must faithfully capture the intended mathematics. Passing Lean verification ([`guide/build.md`](/.tinytau/guide/build.md)) guarantees valid, warning-free proofs using only standard axioms, not that a statement says what it should. Inspect every definition and statement adversarially: try to find a counterexample, vacuous case, or hidden narrowing.
 
 - **No Mis-formalization**: Verify that the Lean statement matches `roadmap/`. Check quantifiers, implication directions, edge cases (empty, zero, degenerate, characteristic `p`), and underlying objects.
 - **No Weakened Claims / Content in Hypotheses**: Do not make hypotheses too strong or smuggle real mathematical content into assumptions (e.g., a structure turning downstream theorems into fields rather than consequences).
@@ -97,13 +97,7 @@ Keep names and notation clear, accurate, and consistent with Lean/Mathlib conven
 
 ## Documentation (`documentation`)
 
-Write accurate, concise docstrings and comments in Lean files.
-
-- **Copyright Header**: New `.lean` files should begin with the standard copyright/author header referencing `copyright-name` from [`.tinytau/config.yml`](/.tinytau/config.yml).
-- **Module Docstrings**: Substantive new Lean files should begin with a module docstring explaining what mathematical content lives there and why.
-- **Public Declarations**: Document public definitions, main theorems, non-obvious abbreviations, and exported instances whose purpose is not self-evident. Describe the mathematical object or statement, not proof mechanics.
-- **Commit-Pinned Roadmap References**: Name the result in prose, then use `XXX theorem ([roadmap](link) @ sha)`. For example, write `Main theorem ([roadmap](../roadmap/area/topic.html#thm-main) @ <commit-sha>)`. Use `roadmap` as the link label, address the rendered page and target anchor relative to the doc-gen4 root, and record the full SHA of the commit containing the cited roadmap version.
-- **No Overclaiming**: Keep docstrings accurate and up to date.
+Write accurate, concise docstrings and comments in Lean files and follow [`schema/docs.md`](/.tinytau/schema/docs.md). Describe the mathematical object or statement. Keep docstrings up to date and avoid overclaiming.
 
 ## Proof Quality (`proof-quality`)
 

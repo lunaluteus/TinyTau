@@ -28,7 +28,6 @@ First read [`README.md`](/README.md), [`.tinytau/config.yml`](/.tinytau/config.y
 - **Search (`rg` / `grep`)** *(Recommended)*: Check `rg --version` or `grep --version` for fast searching across `roadmap/`, Mathlib, and Tau Ceti sources.
 - **`lean-lsp-mcp`** *(Optional)*: Check whether `lean-lsp-mcp` is available for fine-grained interactive Lean diagnostics and goal inspection.
 - **GitHub CLI (`gh`)** *(Optional)*: Check `gh --version` and `gh auth status`. Inform the user that `gh` is optional and enables the `gh.*` features in [`.tinytau/config.yml`](/.tinytau/config.yml) (`gh.fix-ci`, `gh.auto-push`, and `gh.push-min-interval`).
-- **Quarto & Local Doc/CI Scripts** *(Optional)*: Check `quarto --version`, `bash --version`, and `python3 --version` (3.11+ for `parse-lake-metadata.py`). Explicitly inform the user that **Quarto (and `python3`/`build-docs.sh`) is only needed if they want to render `roadmap/` or `doc-gen4` docs locally**—if they rely on GitHub Actions (`.github/workflows/pages.yml` and `compare-human.yml`), local Quarto is unnecessary.
 
 ## Report Format
 
@@ -43,7 +42,7 @@ Include a short note summarizing any placeholder configuration or missing tools,
 
 After reporting the doctor summary, offer to help the user with any of the following setup steps:
 
-- **Install or Fix Missing Tools**: For any missing required tool—or any optional tool the user chooses to enable locally (such as Quarto for local roadmap preview, `rg`, or `lean-lsp-mcp`)—give concise OS-specific setup instructions and offer to re-run the affected check.
+- **Install or Fix Missing Tools**: Give concise OS-specific setup instructions for missing required tools and any optional tools the user chooses to enable. Offer to re-run the affected check.
 
 - **Initialize the Lean Library**: If the Lake config still uses a template library name (or the user asks to rename the Lean library), ask for their desired UpperCamelCase library name `<ProjectName>`, then:
 
