@@ -40,7 +40,7 @@ bash .tinytau/scripts/build-docs.sh
 ```
 
 - **Requirements**: `bash`, `lake` (or `~/.elan/bin/lake`), `python3` (3.11+ for standard-library `tomllib`).
-- **Output**: Creates/updates `docbuild/`, copies the generated HTML documentation into `_site/docs/` (so `/docs/<Module>.html#<Decl>` links in `*-ai.yml` resolve to `_site/docs/<Module>.html#<Decl>`), and runs `rewrite-doc-links.py` to rewrite `/roadmap/...` links in docstrings into relative `.html` links.
+- **Output**: Creates/updates `docbuild/` and copies the generated HTML documentation into `_site/docs/`. Lean docstring links such as `../roadmap/area/topic.html#thm-main` resolve from the doc-gen4 root to the adjacent `_site/roadmap/`. The build still runs the legacy rewriter for older root-relative roadmap links.
 
 ### Render Quarto Roadmap (`_site/roadmap/`)
 
