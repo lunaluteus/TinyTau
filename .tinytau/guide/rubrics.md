@@ -102,7 +102,7 @@ Write accurate, concise docstrings and comments in Lean files.
 - **Copyright Header**: New `.lean` files should begin with the standard copyright/author header referencing `copyright-name` from [`.tinytau/config.yml`](/.tinytau/config.yml).
 - **Module Docstrings**: Substantive new Lean files should begin with a module docstring explaining what mathematical content lives there and why.
 - **Public Declarations**: Document public definitions, main theorems, non-obvious abbreviations, and exported instances whose purpose is not self-evident. Describe the mathematical object or statement, not proof mechanics.
-- **Commit-Pinned Roadmap References**: Use a Markdown link whose label identifies the source roadmap file and target, and record the exact commit SHA after it. For example, write `[/roadmap/area/topic.qmd#thm-main](../roadmap/area/topic.html#thm-main) @ <commit-sha>`. The link points to the rendered page relative to the doc-gen4 root. The source path and SHA identify the roadmap version the formalization used.
+- **Commit-Pinned Roadmap References**: Name the result in prose, then use `XXX theorem ([roadmap](link) @ sha)`. For example, write `Main theorem ([roadmap](../roadmap/area/topic.html#thm-main) @ <commit-sha>)`. Use `roadmap` as the link label, address the rendered page and target anchor relative to the doc-gen4 root, and record the full SHA of the commit containing the cited roadmap version.
 - **No Overclaiming**: Keep docstrings accurate and up to date.
 
 ## Proof Quality (`proof-quality`)
