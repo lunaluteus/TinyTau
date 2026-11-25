@@ -12,7 +12,7 @@ maxSynthPendingDepth = 3
 [[require]]
 name = "TauCeti"
 scope = "TauCetiProject"
-rev = "v4.35.0"
+rev = "v4.36.0"
 
 [[cache.service]]
 name = "tauceti"
