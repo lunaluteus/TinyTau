@@ -1,0 +1,132 @@
+name: TinyTau CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  human-check:
+    name: Human Check
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - name: Compare roadmap/ human files against upstream
+        run: bash .tinytau/scripts/compare-human.sh
+
+  build:
+    name: Build
+    needs: human-check
+    runs-on: ubuntu-24.04
+    outputs:
+      site-artifact: ${{ steps.site-artifact.outcome }}
+    env:
+      PUBLISH_PAGES: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)) }}
+    steps:
+      - name: Cleanup to free disk space
+        if: env.PUBLISH_PAGES == 'true'
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: false
+          large-packages: false
+          swap-storage: false
+
+      - uses: actions/checkout@v5
+      - uses: leanprover/lean-action@v1
+        with:
+          build-args: "--wfail"
+          axiom-audit: "true"
+          axiom-audit-allow: "propext,Classical.choice,Quot.sound"
+
+      - name: Set up Quarto
+        if: env.PUBLISH_PAGES == 'true'
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render roadmap and copy site pages
+        if: env.PUBLISH_PAGES == 'true'
+        run: |
+          bash .tinytau/scripts/build-roadmap.sh
+          cp -r .tinytau/page/. _site/
+
+      # The composite docgen-action skips API generation on workflow_dispatch.
+      # Use its pinned scripts directly so push and dispatch build the same site.
+      - name: Check out docgen-action
+        if: env.PUBLISH_PAGES == 'true'
+        uses: actions/checkout@v5
+        with:
+          repository: leanprover-community/docgen-action
+          ref: dacc1acc2a3f532cc577266979ba9c36c7593f7c
+          path: .docgen-action
+          persist-credentials: false
+
+      - name: Read Lean documentation targets
+        if: env.PUBLISH_PAGES == 'true'
+        id: docgen
+        run: node .docgen-action/dist/index.js
+
+      - name: Cache dependency documentation
+        if: env.PUBLISH_PAGES == 'true' && steps.docgen.outputs.cached_docbuild_dependencies != ''
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.docgen.outputs.cached_docbuild_dependencies }}
+          key: Docs-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'references.bib') }}
+
+      - name: Build and repair API documentation links
+        if: env.PUBLISH_PAGES == 'true'
+        env:
+          NAME: ${{ steps.docgen.outputs.name }}
+          DOCS_FACETS: ${{ steps.docgen.outputs.docs_facets }}
+          HOMEPAGE: _site
+          REFERENCES: references.bib
+        run: |
+          bash .docgen-action/scripts/build_docs.sh
+          python3 .tinytau/scripts/rewrite-doc-links.py
+
+      - name: Upload Pages artifact
+        if: env.PUBLISH_PAGES == 'true'
+        id: site-artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  pages:
+    name: Pages
+    needs: build
+    if: needs.build.outputs.site-artifact == 'success'
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  add-tag:
+    name: Add Tag
+    needs: pages
+    if: github.event_name == 'push' && !github.event.created
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Tag Lean toolchain updates
+        uses: leanprover-community/lean-release-tag@v1
+        continue-on-error: true
+        with:
+          do-release: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
