@@ -95,7 +95,7 @@ jobs:
 
   add-tag:
     name: Add Tag
-    needs: pages
+    needs: build
     if: github.event_name == 'push' && !github.event.created
     runs-on: ubuntu-24.04
     permissions:
