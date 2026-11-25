@@ -80,5 +80,5 @@ Read `gh.auto-push` and `gh.push-min-interval` from [`.tinytau/config.yml`](/.ti
 
   1. **Bypass throttle on CI failure**: If the task just committed was `Fix`, or if the latest run is failing, the `gh.push-min-interval` throttle does **not** apply—push immediately via `git push` (never force-pushing; if pushing fails or no upstream is configured, report the error instead of guessing).
   2. **Wait for active CI**: Otherwise, if any listed run is active, do **not** push yet—keep the commits local.
-  3. **Check creation-time throttle**: If all listed runs are `completed` (or if no runs exist yet on `<branch>`), use `gh.push-min-interval` in minutes, defaulting to `60` when unset. A push is due if no runs exist yet, the interval is `0`, or `now - latest_createdAt >= gh.push-min-interval * 60` (in seconds, using the newest run's `createdAt`). Otherwise, keep the commits local.
+  3. **Check creation-time throttle**: If all listed runs are `completed` (or if no runs exist yet on `<branch>`): a push is due if no runs exist yet, `gh.push-min-interval` is `0`, or `now - latest_createdAt >= gh.push-min-interval * 60` (in seconds, using the newest run's `createdAt`). Otherwise, keep the commits local.
   4. **Push when due**: Run `git push` (never force-pushing; if pushing fails or no upstream is configured, report the error instead of guessing).
