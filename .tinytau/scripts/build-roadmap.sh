@@ -14,7 +14,7 @@ mkdir -p "$WORK_DIR/roadmap"
 if [[ -e roadmap || -L roadmap ]]; then
   cp -r roadmap/. "$WORK_DIR/roadmap/"
 else
-  human_sha="$(awk -F': *' '/^human-sha:/ {print $2}' .tinytau/sync.yml | sed 's/#.*//; s/[[:space:]"\r]//g')"
+  human_sha="$(yq -r '.["human-sha"] // ""' .tinytau/sync.yml)"
   if [[ -n "$human_sha" && "$human_sha" != null ]]; then
     printf 'roadmap/ is missing for synced commit %s.\n' "$human_sha" >&2
     exit 1
@@ -45,20 +45,16 @@ filters:
     path: "$FILTER_PATH"
 EOF
 
-rm -rf "$OUT_DIR"
-mkdir -p "$OUT_DIR"
-
 QUARTO_PROFILE=""
 if [ -f .tinytau/config.yml ]; then
-  if command -v yq >/dev/null 2>&1; then
-    QUARTO_PROFILE="$(yq '."quarto-profile" // ""' .tinytau/config.yml)"
-  else
-    QUARTO_PROFILE="$(awk -F': *' '/^quarto-profile:/ {print $2}' .tinytau/config.yml | sed "s/#.*//; s/[[:space:]\"'\r]//g")"
-  fi
-  if [ "$QUARTO_PROFILE" = "null" ] || [ "$QUARTO_PROFILE" = "~" ]; then
+  QUARTO_PROFILE="$(yq -r '.["quarto-profile"] // ""' .tinytau/config.yml)"
+  if [[ "$QUARTO_PROFILE" == null || "$QUARTO_PROFILE" == '~' ]]; then
     QUARTO_PROFILE=""
   fi
 fi
+
+rm -rf "$OUT_DIR"
+mkdir -p "$OUT_DIR"
 
 QUARTO_ARGS=(
   --to html
