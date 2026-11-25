@@ -42,7 +42,7 @@ Keep each commit focused on a single coherent topic that belongs in the reposito
 Keep edits under `roadmap/` (and `.tinytau/sync.yml`) mathematically sound, properly attributed, and consistent with the Lean codebase.
 
 - **Human File Protection**:
-  - Human-authored files under `roadmap/` (files without an `-ai` stem suffix per [`schema/roadmap.md`](/.tinytau/schema/roadmap.md)) are strictly read-only except during `Sync`. The [Human Check job](/.github/workflows/ci.yml) verifies byte-for-byte equality against `human-repo` at `.tinytau/sync.yml`'s `human-sha`.
+  - Human-authored files under `roadmap/` (files without an `-ai` stem suffix per [`schema/roadmap.md`](/.tinytau/schema/roadmap.md)) are strictly read-only except during `Sync`. The [compare-human job](/.github/workflows/ci.yml) verifies byte-for-byte equality against `human-repo` at `.tinytau/sync.yml`'s `human-sha`.
   - Never modify `.tinytau/sync.yml` or human-authored files outside `Sync`.
   - Never edit `.lean` files in a `Sync` commit.
 - **AI Roadmap Exposition (`*-ai.qmd`)**:

@@ -11,8 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  human-check:
-    name: Human Check
+  compare-human:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
@@ -21,7 +20,7 @@ jobs:
 
   build:
     name: Build
-    needs: human-check
+    needs: compare-human
     runs-on: ubuntu-24.04
     outputs:
       site-artifact: ${{ steps.site-artifact.outcome }}

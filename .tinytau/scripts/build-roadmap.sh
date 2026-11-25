@@ -11,22 +11,7 @@ WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/tinytau-roadmap.XXXXXX")"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
 mkdir -p "$WORK_DIR/roadmap"
-if [[ -e roadmap || -L roadmap ]]; then
-  cp -r roadmap/. "$WORK_DIR/roadmap/"
-else
-  human_sha="$(awk -F': *' '/^human-sha:/ {print $2}' .tinytau/sync.yml | sed 's/#.*//; s/[[:space:]"\r]//g')"
-  if [[ -n "$human_sha" && "$human_sha" != null ]]; then
-    printf 'roadmap/ is missing for synced commit %s.\n' "$human_sha" >&2
-    exit 1
-  fi
-  cat <<'EOF' > "$WORK_DIR/roadmap/index.qmd"
----
-title: Roadmap
----
-
-The roadmap will appear here after the first sync.
-EOF
-fi
+cp -r roadmap/. "$WORK_DIR/roadmap/"
 
 # Ensure a root _quarto.yml exists so --output-dir is always respected by Quarto
 if [ ! -f "$WORK_DIR/roadmap/_quarto.yml" ] && [ ! -f "$WORK_DIR/roadmap/_quarto.yaml" ]; then
