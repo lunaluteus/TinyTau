@@ -7,7 +7,7 @@ Use these rubrics as a self-check reference before committing `Fix`, `Feat`, `Re
 
 ## Correctness and Faithfulness (`correctness`)
 
-Every new definition and theorem must faithfully capture the intended mathematics. Passing Lean verification ([`guide/build.md`](/.tinytau/guide/build.md)) guarantees valid, warning-free proofs using only standard axioms, not that a statement says what it should. Inspect every definition and statement adversarially: try to find a counterexample, vacuous case, or hidden narrowing.
+Every new definition and theorem must faithfully capture the intended mathematics. Passing Lean verification ([`guide/check.md`](/.tinytau/guide/check.md)) guarantees valid, warning-free proofs using only standard axioms, not that a statement says what it should. Inspect every definition and statement adversarially: try to find a counterexample, vacuous case, or hidden narrowing.
 
 - **No Mis-formalization**: Verify that the Lean statement matches `roadmap/`. Check quantifiers, implication directions, edge cases (empty, zero, degenerate, characteristic `p`), and underlying objects.
 - **No Weakened Claims / Content in Hypotheses**: Do not make hypotheses too strong or smuggle real mathematical content into assumptions (e.g., a structure turning downstream theorems into fields rather than consequences).
